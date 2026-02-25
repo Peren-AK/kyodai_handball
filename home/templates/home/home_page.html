@@ -3,7 +3,6 @@
 
 {% block content %}
 <div class="relative h-[calc(100vh-4rem)] flex items-center justify-start overflow-hidden">
-    
     {% if page.hero_image %}
         {% image page.hero_image fill-1920x1080 class="absolute inset-0 w-full h-full object-cover z-0" %}
     {% else %}
@@ -24,36 +23,6 @@
             </a>
         </div>
     </div>
-</div>
-
-<div class="grid grid-cols-1 md:grid-cols-3 w-full border-b border-black">
-    
-    <a href="/members/" class="group relative h-64 md:h-80 overflow-hidden block bg-neutral-900 border-r border-black">
-        <div class="absolute inset-0 bg-neutral-800 z-0 group-hover:scale-110 transition duration-700"></div>
-        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-500 z-10"></div>
-        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center">
-            <h2 class="text-4xl md:text-5xl font-black text-white tracking-widest italic group-hover:-translate-y-2 transition duration-500">TEAM</h2>
-            <span class="text-kyodaigreen font-bold mt-2 opacity-0 group-hover:opacity-100 transition duration-500">メンバー紹介 ➔</span>
-        </div>
-    </a>
-
-    <a href="/matches/" class="group relative h-64 md:h-80 overflow-hidden block bg-neutral-800 border-r border-black">
-        <div class="absolute inset-0 bg-neutral-700 z-0 group-hover:scale-110 transition duration-700"></div>
-        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-500 z-10"></div>
-        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center">
-            <h2 class="text-4xl md:text-5xl font-black text-white tracking-widest italic group-hover:-translate-y-2 transition duration-500">MATCHES</h2>
-            <span class="text-kyodaigreen font-bold mt-2 opacity-0 group-hover:opacity-100 transition duration-500">試合情報・結果 ➔</span>
-        </div>
-    </a>
-
-    <a href="/activities/" class="group relative h-64 md:h-80 overflow-hidden block bg-neutral-900">
-        <div class="absolute inset-0 bg-neutral-800 z-0 group-hover:scale-110 transition duration-700"></div>
-        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-500 z-10"></div>
-        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center">
-            <h2 class="text-4xl md:text-5xl font-black text-white tracking-widest italic group-hover:-translate-y-2 transition duration-500">CLUB</h2>
-            <span class="text-kyodaigreen font-bold mt-2 opacity-0 group-hover:opacity-100 transition duration-500">活動情報 ➔</span>
-        </div>
-    </a>
 </div>
 
 <div id="recent-matches" class="max-w-7xl mx-auto p-4 py-20 grid md:grid-cols-2 gap-8">
@@ -88,6 +57,64 @@
                 <p class="text-sm text-kyodaigreen font-bold">※{{ next_match.spectator_info }}</p>
             {% endif %}
         {% endif %}
+    </div>
+</div>
+
+<div class="grid grid-cols-1 md:grid-cols-3 w-full border-b border-t border-black">
+    <a href="/members/" class="group relative h-64 md:h-80 overflow-hidden block bg-neutral-900 border-r border-black">
+        <div class="absolute inset-0 bg-neutral-800 z-0 group-hover:scale-110 transition duration-700"></div>
+        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-500 z-10"></div>
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center">
+            <h2 class="text-4xl md:text-5xl font-black text-white tracking-widest italic group-hover:-translate-y-2 transition duration-500">TEAM</h2>
+            <span class="text-kyodaigreen font-bold mt-2 opacity-0 group-hover:opacity-100 transition duration-500">メンバー紹介 ➔</span>
+        </div>
+    </a>
+
+    <a href="/matches/" class="group relative h-64 md:h-80 overflow-hidden block bg-neutral-800 border-r border-black">
+        <div class="absolute inset-0 bg-neutral-700 z-0 group-hover:scale-110 transition duration-700"></div>
+        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-500 z-10"></div>
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center">
+            <h2 class="text-4xl md:text-5xl font-black text-white tracking-widest italic group-hover:-translate-y-2 transition duration-500">MATCHES</h2>
+            <span class="text-kyodaigreen font-bold mt-2 opacity-0 group-hover:opacity-100 transition duration-500">試合情報・結果 ➔</span>
+        </div>
+    </a>
+
+    <a href="/activities/" class="group relative h-64 md:h-80 overflow-hidden block bg-neutral-900">
+        <div class="absolute inset-0 bg-neutral-800 z-0 group-hover:scale-110 transition duration-700"></div>
+        <div class="absolute inset-0 bg-black/50 group-hover:bg-black/20 transition duration-500 z-10"></div>
+        <div class="absolute inset-0 z-20 flex flex-col items-center justify-center">
+            <h2 class="text-4xl md:text-5xl font-black text-white tracking-widest italic group-hover:-translate-y-2 transition duration-500">INFO</h2>
+            <span class="text-kyodaigreen font-bold mt-2 opacity-0 group-hover:opacity-100 transition duration-500">活動情報 ➔</span>
+        </div>
+    </a>
+</div>
+
+<div class="max-w-7xl mx-auto p-4 py-32 md:py-40">
+    <div class="bg-neutral-900 rounded-2xl p-8 lg:p-16 border border-neutral-800 relative overflow-hidden text-center shadow-2xl">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl md:text-[140px] font-black text-white opacity-5 italic whitespace-nowrap z-0 pointer-events-none">SOCIAL MEDIA</div>
+        <h2 class="text-4xl font-black text-white italic mb-12 relative z-10 tracking-widest">OFFICIAL <span class="text-kyodaigreen">SNS</span></h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 max-w-5xl mx-auto">
+            <a href="YouTubeのURL" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-red-500 transition duration-300 group shadow-md flex flex-col items-center justify-center">
+                <i class="fab fa-youtube text-5xl text-gray-500 group-hover:text-red-500 mb-4 transition"></i>
+                <strong class="text-white text-xl font-black italic mb-2">YouTube</strong>
+                <span class="text-xs text-gray-400 font-bold">試合動画・ハイライト</span>
+            </a>
+            
+            <a href="XのURL" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-white transition duration-300 group shadow-md flex flex-col items-center justify-center">
+                <div class="flex flex-col items-center transform -translate-y-2">
+                    <i class="fab fa-x-twitter text-5xl text-gray-500 group-hover:text-white mb-4 transition"></i>
+                    <strong class="text-white text-xl font-black italic mb-2">X (Twitter)</strong>
+                    <span class="text-xs text-gray-400 font-bold">試合速報・お知らせ</span>
+                </div>
+            </a>
+            
+            <a href="InstagramのURL" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-pink-500 transition duration-300 group shadow-md flex flex-col items-center justify-center">
+                <i class="fab fa-instagram text-5xl text-gray-500 group-hover:text-pink-500 mb-4 transition"></i>
+                <strong class="text-white text-xl font-black italic mb-2">Instagram</strong>
+                <span class="text-xs text-gray-400 font-bold">活動写真・オフショット</span>
+            </a>
+        </div>
     </div>
 </div>
 

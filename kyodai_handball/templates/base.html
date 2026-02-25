@@ -13,7 +13,7 @@
         }
     </script>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     {% if settings.core.SiteSettings.ga4_measurement_id %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.core.SiteSettings.ga4_measurement_id }}"></script>
@@ -37,8 +37,8 @@
                 </div>
                 
                 <nav class="hidden md:flex space-x-8">
-                    <a href="/matches/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">MATCHES</a>
                     <a href="/members/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">TEAM</a>
+                    <a href="/matches/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">MATCHES</a>
                     <a href="/blog/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">BLOG</a>
                     <a href="/activities/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">INFO</a>
                 </nav>
@@ -55,8 +55,8 @@
 
         <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-neutral-800">
             <div class="px-4 pt-2 pb-4 space-y-2">
-                <a href="/matches/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">MATCHES <span class="text-xs text-gray-500 ml-2">試合情報</span></a>
                 <a href="/members/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">TEAM <span class="text-xs text-gray-500 ml-2">メンバー紹介</span></a>
+                <a href="/matches/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">MATCHES <span class="text-xs text-gray-500 ml-2">試合情報</span></a>
                 <a href="/blog/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">BLOG <span class="text-xs text-gray-500 ml-2">活動ブログ</span></a>
                 <a href="/activities/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen">INFO <span class="text-xs text-gray-500 ml-2">活動情報</span></a>
             </div>
@@ -69,6 +69,29 @@
 
     <footer class="bg-black py-12 text-center text-sm text-gray-500 border-t border-neutral-800">
         <a href="{{ settings.core.SiteSettings.contact_form_url }}" target="_blank" class="inline-block mb-6 font-bold text-kyodaigreen hover:text-green-400 border border-kyodaigreen rounded-full px-6 py-2 transition">お問い合わせ (Google Form)</a>
+        
+        <div class="flex justify-center items-center space-x-8 mb-8">
+            
+            {% if settings.core.SiteSettings.youtube_url %}
+            <a href="{{ settings.core.SiteSettings.youtube_url }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-red-500 transition text-2xl">
+                <i class="fab fa-youtube"></i>
+            </a>
+            {% endif %}
+            
+            {% if settings.core.SiteSettings.x_url %}
+            <a href="{{ settings.core.SiteSettings.x_url }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-white transition text-2xl">
+                <i class="fab fa-x-twitter"></i>
+            </a>
+            {% endif %}
+            
+            {% if settings.core.SiteSettings.instagram_url %}
+            <a href="{{ settings.core.SiteSettings.instagram_url }}" target="_blank" rel="noopener noreferrer" class="text-gray-500 hover:text-pink-500 transition text-2xl">
+                <i class="fab fa-instagram"></i>
+            </a>
+            {% endif %}
+
+        </div>
+
         <p>&copy; 2026 Kyoto University Handball Club.</p>
     </footer>
 

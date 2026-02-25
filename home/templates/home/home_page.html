@@ -95,13 +95,13 @@
         <h2 class="text-4xl font-black text-white italic mb-12 relative z-10 tracking-widest">OFFICIAL <span class="text-kyodaigreen">SNS</span></h2>
         
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 max-w-5xl mx-auto">
-            <a href="YouTubeのURL" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-red-500 transition duration-300 group shadow-md flex flex-col items-center justify-center">
+            <a href="{{ settings.core.SiteSettings.youtube_url }}" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-red-500 transition duration-300 group shadow-md flex flex-col items-center justify-center">
                 <i class="fab fa-youtube text-5xl text-gray-500 group-hover:text-red-500 mb-4 transition"></i>
                 <strong class="text-white text-xl font-black italic mb-2">YouTube</strong>
-                <span class="text-xs text-gray-400 font-bold">試合動画・ハイライト</span>
+                <span class="text-xs text-gray-400 font-bold">配信・ハイライト</span>
             </a>
             
-            <a href="XのURL" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-white transition duration-300 group shadow-md flex flex-col items-center justify-center">
+            <a href="{{ settings.core.SiteSettings.x_url }}" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-white transition duration-300 group shadow-md flex flex-col items-center justify-center">
                 <div class="flex flex-col items-center transform -translate-y-2">
                     <i class="fab fa-x-twitter text-5xl text-gray-500 group-hover:text-white mb-4 transition"></i>
                     <strong class="text-white text-xl font-black italic mb-2">X (Twitter)</strong>
@@ -109,10 +109,10 @@
                 </div>
             </a>
             
-            <a href="InstagramのURL" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-pink-500 transition duration-300 group shadow-md flex flex-col items-center justify-center">
+            <a href="{{ settings.core.SiteSettings.instagram_url }}" target="_blank" rel="noopener noreferrer" class="bg-black p-6 py-8 rounded-xl border border-neutral-800 hover:border-pink-500 transition duration-300 group shadow-md flex flex-col items-center justify-center">
                 <i class="fab fa-instagram text-5xl text-gray-500 group-hover:text-pink-500 mb-4 transition"></i>
                 <strong class="text-white text-xl font-black italic mb-2">Instagram</strong>
-                <span class="text-xs text-gray-400 font-bold">活動写真・オフショット</span>
+                <span class="text-xs text-gray-400 font-bold">試合結果・お知らせ</span>
             </a>
         </div>
     </div>

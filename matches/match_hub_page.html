@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% load wagtailcore_tags %}
+
+{% block content %}
+<div class="max-w-4xl mx-auto p-4">
+    <h1 class="text-3xl font-bold mb-8 border-l-4 border-kyodaigreen pl-3">試合情報・結果</h1>
+
+    <section class="mb-12">
+        <h2 class="text-2xl font-semibold mb-4 text-kyodaigreen">春リーグ</h2>
+        
+        {% for table in tables %}
+            {% if table.competition_category == 'spring' %}
+                <div class="mb-6 overflow-x-auto bg-neutral-800 p-4 rounded">
+                    <h3 class="font-bold mb-2">{{ table.title }}</h3>
+                    <div class="prose prose-invert prose-td:border prose-td:border-neutral-700 prose-th:bg-neutral-700">
+                        {{ table.table_data }}
+                    </div>
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="space-y-4">
+        {% for match in spring_matches %}
+            <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-2 md:mb-0">
+                    <span class="text-sm text-gray-400">{{ match.match_datetime|date:"Y/m/d H:i" }} @{{ match.venue_name }}</span>
+                    <h3 class="text-xl font-bold mt-1">vs {{ match.opponent_name }}</h3>
+                </div>
+                {% if match.status == 'finished' %}
+                    <div class="text-center">
+                        <span class="text-2xl font-bold {% if match.result_outcome == 'win' %}text-kyodaigreen{% elif match.result_outcome == 'lose' %}text-red-500{% endif %}">
+                            {{ match.score_kyodai_total }} - {{ match.score_opponent_total }}
+                        </span>
+                        <div class="text-xs text-gray-400">
+                            前半: {{ match.score_kyodai_first_half }}-{{ match.score_opponent_first_half }} <br>
+                            後半: {{ match.score_kyodai_second_half }}-{{ match.score_opponent_second_half }}
+                        </div>
+                    </div>
+                {% else %}
+                    <span class="px-3 py-1 bg-neutral-700 rounded-full text-sm">試合予定</span>
+                {% endif %}
+            </div>
+        {% endfor %}
+        </div>
+    </section>
+</div>
+{% endblock %}

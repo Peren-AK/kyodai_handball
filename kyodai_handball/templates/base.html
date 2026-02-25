@@ -1,0 +1,81 @@
+{% load static wagtailsettings_tags wagtailcore_tags %}
+{% get_settings %}
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}{{ page.title }} | 京都大学ハンドボール部{% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: { extend: { colors: { kyodaigreen: '#22c55e' } } }
+        }
+    </script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    {% if settings.core.SiteSettings.ga4_measurement_id %}
+    <script async src="https://www.googletagmanager.com/gtag/js?id={{ settings.core.SiteSettings.ga4_measurement_id }}"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', '{{ settings.core.SiteSettings.ga4_measurement_id }}');
+    </script>
+    {% endif %}
+</head>
+<body class="bg-neutral-900 text-gray-100 font-sans antialiased">
+    
+    <header class="fixed top-0 left-0 w-full z-50 bg-black/80 backdrop-blur-md border-b border-neutral-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <a href="/" class="text-xl md:text-2xl font-black text-white tracking-wider italic">
+                        KYOTO UNIV. <span class="text-kyodaigreen">HANDBALL</span>
+                    </a>
+                </div>
+                
+                <nav class="hidden md:flex space-x-8">
+                    <a href="/matches/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">MATCHES</a>
+                    <a href="/members/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">TEAM</a>
+                    <a href="/blog/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">BLOG</a>
+                    <a href="/activities/" class="text-sm font-bold text-gray-300 hover:text-kyodaigreen transition tracking-widest">INFO</a>
+                </nav>
+
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white focus:outline-none">
+                        <svg class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-neutral-800">
+            <div class="px-4 pt-2 pb-4 space-y-2">
+                <a href="/matches/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">MATCHES <span class="text-xs text-gray-500 ml-2">試合情報</span></a>
+                <a href="/members/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">TEAM <span class="text-xs text-gray-500 ml-2">メンバー紹介</span></a>
+                <a href="/blog/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">BLOG <span class="text-xs text-gray-500 ml-2">活動ブログ</span></a>
+                <a href="/activities/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen">INFO <span class="text-xs text-gray-500 ml-2">活動情報</span></a>
+            </div>
+        </div>
+    </header>
+
+    <main class="min-h-screen pt-16">
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer class="bg-black py-12 text-center text-sm text-gray-500 border-t border-neutral-800">
+        <a href="{{ settings.core.SiteSettings.contact_form_url }}" target="_blank" class="inline-block mb-6 font-bold text-kyodaigreen hover:text-green-400 border border-kyodaigreen rounded-full px-6 py-2 transition">お問い合わせ (Google Form)</a>
+        <p>&copy; 2026 Kyoto University Handball Club.</p>
+    </footer>
+
+    <script>
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>

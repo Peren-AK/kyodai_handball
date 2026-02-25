@@ -14,6 +14,7 @@ class Member(models.Model):
     position = models.CharField(max_length=50, blank=True, verbose_name="ポジション")
     hometown = models.CharField(max_length=50, blank=True, verbose_name="出身地/出身校")
     profile_text = models.TextField(blank=True, verbose_name="紹介文")
+    intro_url = models.URLField(blank=True, verbose_name="紹介記事のURL", help_text="クリック時の飛び先URL（空欄の場合はリンクになりません）")
     
     # 画像はWagtail標準のImageモデルと紐づけ
     photo = models.ForeignKey(
@@ -26,6 +27,7 @@ class Member(models.Model):
     panels = [
         FieldPanel('name'), FieldPanel('role_type'), FieldPanel('grade'),
         FieldPanel('position'), FieldPanel('hometown'), FieldPanel('profile_text'),
+        FieldPanel('intro_url'),
         FieldPanel('photo'), FieldPanel('display_order'), FieldPanel('is_published'),
     ]
 

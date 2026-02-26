@@ -4,6 +4,78 @@
 {% block title %}{{ page.title }} | INFO{% endblock %}
 
 {% block content %}
+<style>
+    /* --------------------------------------
+       PRACTICE SCHEDULE のスタイル
+    -------------------------------------- */
+    .custom-practice-schedule { position: relative; z-index: 10; color: #e5e5e5; }
+    .custom-practice-schedule p { display: block !important; margin-bottom: 1.5rem !important; font-size: 1.5rem !important; font-weight: bold !important; }
+    @media (min-width: 768px) { .custom-practice-schedule p { font-size: 2rem !important; } }
+    .custom-practice-schedule b, .custom-practice-schedule strong { color: #ffffff !important; font-size: 2.5rem !important; font-weight: 900 !important; margin-right: 1.5rem !important; line-height: 1 !important; }
+    @media (min-width: 768px) { .custom-practice-schedule b, .custom-practice-schedule strong { font-size: 3.5rem !important; } }
+    .custom-practice-schedule br { display: none !important; }
+
+    /* --------------------------------------
+       YEARLY SCHEDULE
+    -------------------------------------- */
+    .custom-yearly-schedule { position: relative; z-index: 10; max-width: 48rem !important; margin: 0 auto; text-align: left; }
+    
+    /* 万が一リストボタンを使われても影響を消す */
+    .custom-yearly-schedule ul { padding: 0 !important; margin: 0 !important; list-style: none !important; }
+    .custom-yearly-schedule li { margin: 0 !important; padding: 0 !important; border: none !important; }
+    .custom-yearly-schedule li::marker { content: "" !important; display: none !important; }
+
+    /* ★すべての文字（春リーグなど）を強制的に特大にする */
+    .custom-yearly-schedule p,
+    .custom-yearly-schedule div,
+    .custom-yearly-schedule li,
+    .custom-yearly-schedule span {
+        display: block !important;
+        color: #ffffff !important;
+        font-size: 1.8rem !important; /* スマホでの文字サイズ */
+        font-weight: bold !important;
+        margin-bottom: 1.5rem !important;
+        line-height: 1.6 !important;
+        padding-left: 1.5rem !important;
+        border-left: 2px solid #333333 !important; /* 予定を繋ぐ左の縦ライン */
+        margin-left: 2rem !important;
+    }
+    @media (min-width: 768px) {
+        .custom-yearly-schedule p,
+        .custom-yearly-schedule div,
+        .custom-yearly-schedule li,
+        .custom-yearly-schedule span {
+            font-size: 2.4rem !important; /* PCでの文字サイズ（超巨大に！） */
+            padding-left: 2.5rem !important;
+            margin-left: 3rem !important;
+        }
+    }
+
+    /* ★〇月の部分（強制的に緑のバッジにしてライン上に乗せる） */
+    .custom-yearly-schedule b,
+    .custom-yearly-schedule strong {
+        display: inline-block !important;
+        background-color: #22c55e !important;
+        color: #000000 !important;
+        font-size: 2rem !important;
+        font-weight: 900 !important;
+        font-style: italic !important;
+        padding: 0.2rem 1.5rem !important;
+        border-radius: 999px !important;
+        margin-top: 2rem !important; /* 上の予定とのすき間 */
+        margin-bottom: 1.5rem !important;
+        margin-left: -1.5rem !important; /* 縦ラインから左に少し飛び出させる */
+        border: none !important;
+    }
+    @media (min-width: 768px) {
+        .custom-yearly-schedule b,
+        .custom-yearly-schedule strong {
+            font-size: 2.8rem !important;
+            margin-left: -2.5rem !important;
+        }
+    }
+</style>
+
 <div class="bg-neutral-900 border-b border-black py-24 px-4 text-center relative overflow-hidden">
     <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[120px] md:text-[180px] font-black text-white opacity-5 italic whitespace-nowrap z-0 pointer-events-none">
         ABOUT OUR CLUB
@@ -22,7 +94,7 @@
             <div class="absolute top-0 right-0 opacity-5 text-8xl font-black italic -mt-4 -mr-4 group-hover:scale-110 transition duration-500">SCHEDULE</div>
             <h2 class="text-3xl font-black text-white tracking-widest italic mb-8 border-l-4 border-kyodaigreen pl-4 relative z-10">PRACTICE <span class="text-kyodaigreen">SCHEDULE</span></h2>
             
-            <div class="prose prose-invert prose-green max-w-none relative z-10 [&_p]:font-bold [&_p]:tracking-wider [&_p]:text-gray-300 [&_p]:leading-loose [&_strong]:text-white [&_strong]:text-xl">
+            <div class="custom-practice-schedule">
                 {{ page.practice_schedule|richtext }}
             </div>
         </div>
@@ -30,12 +102,8 @@
         <div class="bg-neutral-900 rounded-2xl p-8 md:p-10 shadow-2xl border border-neutral-800 relative overflow-hidden group hover:border-kyodaigreen transition duration-500 flex flex-col">
             <div class="absolute top-0 right-0 opacity-5 text-8xl font-black italic -mt-4 -mr-4 group-hover:scale-110 transition duration-500">LOCATION</div>
             <h2 class="text-3xl font-black text-white tracking-widest italic mb-8 border-l-4 border-kyodaigreen pl-4 relative z-10">LOCATION<span class="text-kyodaigreen">.</span></h2>
-            
-            <div class="prose prose-invert prose-green max-w-none relative z-10 mb-8 [&_p]:font-bold [&_p]:tracking-wider [&_p]:text-gray-300">
-                {{ page.location|richtext }}
-            </div>
 
-            <div class="w-full h-64 bg-neutral-800 rounded-xl overflow-hidden relative z-10 border border-neutral-700 mt-auto shadow-inner">
+            <div class="w-full h-64 md:h-full min-h-[250px] bg-neutral-800 rounded-xl overflow-hidden relative z-10 border border-neutral-700 shadow-inner flex-grow">
                 <iframe 
                     src="https://maps.google.co.jp/maps?q=京都府京都市左京区吉田本町+京都大学総合体育館&output=embed&t=m&z=16" 
                     width="100%" 
@@ -55,34 +123,39 @@
         </div>
         <h2 class="text-4xl font-black text-white tracking-widest italic mb-12 text-center relative z-10">YEARLY <span class="text-kyodaigreen">SCHEDULE</span></h2>
         
-        <div class="prose prose-invert prose-green max-w-5xl mx-auto relative z-10
-                    [&_ul]:grid [&_ul]:grid-cols-1 [&_ul]:md:grid-cols-2 [&_ul]:lg:grid-cols-3 [&_ul]:gap-4 [&_ul]:list-none [&_ul]:pl-0
-                    [&_li]:bg-black [&_li]:p-6 [&_li]:rounded-xl [&_li]:border [&_li]:border-neutral-800 [&_li]:flex [&_li]:flex-col [&_li]:justify-center [&_li]:shadow-md [&_li]:hover:border-kyodaigreen [&_li]:transition
-                    [&_li_strong]:text-kyodaigreen [&_li_strong]:text-3xl [&_li_strong]:mb-2 [&_li_strong]:italic [&_li_strong]:font-black">
+        <div class="custom-yearly-schedule">
             {{ page.monthly_schedule|richtext }}
         </div>
+    </div>
 
-        <div class="bg-neutral-900 rounded-2xl p-8 lg:p-16 border border-neutral-800 relative overflow-hidden mb-20 text-center">
-            <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl font-black text-white opacity-5 italic whitespace-nowrap z-0">SOCIAL MEDIA</div>
-            <h2 class="text-4xl font-black text-white italic mb-12 relative z-10">OFFICIAL <span class="text-kyodaigreen">SNS</span></h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 max-w-5xl mx-auto">
-                <a href="{{ settings.core.SiteSettings.youtube_url }}" target="_blank" class="bg-black p-6 rounded-xl border border-neutral-800 hover:border-red-500 transition group">
-                    <i class="fab fa-youtube text-4xl text-gray-500 group-hover:text-red-500 mb-3"></i>
-                    <div class="text-white font-black italic">YouTube</div>
-                    <div class="text-xs text-gray-400 mt-2 font-bold">配信・ハイライト</div>
-                </a>
-                <a href="{{ settings.core.SiteSettings.x_url }}" target="_blank" class="bg-black p-6 rounded-xl border border-neutral-800 hover:border-white transition group">
-                    <i class="fab fa-x-twitter text-4xl text-gray-500 group-hover:text-white mb-3"></i>
-                    <div class="text-white font-black italic">X (Twitter)</div>
-                    <div class="text-xs text-gray-400 mt-2 font-bold">試合速報・お知らせ</div>
-                </a>
-                <a href="{{ settings.core.SiteSettings.instagram_url }}" target="_blank" class="bg-black p-6 rounded-xl border border-neutral-800 hover:border-pink-500 transition group">
-                    <i class="fab fa-instagram text-4xl text-gray-500 group-hover:text-pink-500 mb-3"></i>
-                    <div class="text-white font-black italic">Instagram</div>
-                    <div class="text-xs text-gray-400 mt-2 font-bold">試合結果・お知らせ</div>
-                </a>
-            </div>
+    <div class="bg-neutral-900 rounded-2xl p-8 lg:p-16 border border-neutral-800 relative overflow-hidden mb-20 text-center shadow-2xl">
+        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl md:text-[140px] font-black text-white opacity-5 italic whitespace-nowrap z-0 pointer-events-none">SOCIAL MEDIA</div>
+        <h2 class="text-4xl font-black text-white italic mb-12 relative z-10 tracking-widest">OFFICIAL <span class="text-kyodaigreen">SNS</span></h2>
+        
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 relative z-10 max-w-5xl mx-auto">
+            <a href="{{ settings.core.SiteSettings.youtube_url }}" target="_blank" rel="noopener noreferrer" class="bg-black py-10 px-6 rounded-xl border border-neutral-800 hover:border-red-500 transition group shadow-md flex flex-col items-center justify-center gap-4">
+                <i class="fab fa-youtube text-5xl text-gray-500 group-hover:text-red-500 transition"></i>
+                <div class="flex flex-col items-center gap-1">
+                    <strong class="text-white text-xl font-black italic">YouTube</strong>
+                    <span class="text-xs text-gray-400 font-bold">配信・ハイライト</span>
+                </div>
+            </a>
+            <a href="{{ settings.core.SiteSettings.x_url }}" target="_blank" rel="noopener noreferrer" class="bg-black py-10 px-6 rounded-xl border border-neutral-800 hover:border-white transition group shadow-md flex flex-col items-center justify-center gap-4">
+                <div class="flex flex-col items-center transform -translate-y-1 gap-4">
+                    <i class="fab fa-x-twitter text-5xl text-gray-500 group-hover:text-white transition"></i>
+                    <div class="flex flex-col items-center gap-1">
+                        <strong class="text-white text-xl font-black italic">X (Twitter)</strong>
+                        <span class="text-xs text-gray-400 font-bold">試合速報・お知らせ</span>
+                    </div>
+                </div>
+            </a>
+            <a href="{{ settings.core.SiteSettings.instagram_url }}" target="_blank" rel="noopener noreferrer" class="bg-black py-10 px-6 rounded-xl border border-neutral-800 hover:border-pink-500 transition group shadow-md flex flex-col items-center justify-center gap-4">
+                <i class="fab fa-instagram text-5xl text-gray-500 group-hover:text-pink-500 transition"></i>
+                <div class="flex flex-col items-center gap-1">
+                    <strong class="text-white text-xl font-black italic">Instagram</strong>
+                    <span class="text-xs text-gray-400 font-bold">試合結果・お知らせ</span>
+                </div>
+            </a>
         </div>
     </div>
 

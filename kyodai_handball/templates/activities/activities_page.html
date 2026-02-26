@@ -5,9 +5,7 @@
 
 {% block content %}
 <style>
-    /* --------------------------------------
-       PRACTICE SCHEDULE のスタイル
-    -------------------------------------- */
+    /* PRACTICE SCHEDULE (同じ) */
     .custom-practice-schedule { position: relative; z-index: 10; color: #e5e5e5; }
     .custom-practice-schedule p { display: block !important; margin-bottom: 1.5rem !important; font-size: 1.5rem !important; font-weight: bold !important; }
     @media (min-width: 768px) { .custom-practice-schedule p { font-size: 2rem !important; } }
@@ -15,65 +13,48 @@
     @media (min-width: 768px) { .custom-practice-schedule b, .custom-practice-schedule strong { font-size: 3.5rem !important; } }
     .custom-practice-schedule br { display: none !important; }
 
-    /* --------------------------------------
-       YEARLY SCHEDULE
-    -------------------------------------- */
-    .custom-yearly-schedule { position: relative; z-index: 10; max-width: 48rem !important; margin: 0 auto; text-align: left; }
+    /* YEARLY SCHEDULE (シンプル・下線スタイル 余白ゆったり版) */
+    .custom-yearly-schedule { position: relative; z-index: 10; max-width: 72rem !important; margin: 0 auto; text-align: center; }
     
-    /* 万が一リストボタンを使われても影響を消す */
-    .custom-yearly-schedule ul { padding: 0 !important; margin: 0 !important; list-style: none !important; }
-    .custom-yearly-schedule li { margin: 0 !important; padding: 0 !important; border: none !important; }
+    /* リスト入力された場合の保険 */
+    .custom-yearly-schedule ul {
+        display: grid !important; grid-template-columns: 1fr !important; gap: 3rem !important;
+        padding: 0 !important; margin: 0 !important; list-style: none !important;
+    }
+    @media (min-width: 768px) { .custom-yearly-schedule ul { grid-template-columns: repeat(2, 1fr) !important; } }
+    @media (min-width: 1024px) { .custom-yearly-schedule ul { grid-template-columns: repeat(3, 1fr) !important; } }
+    
+    .custom-yearly-schedule li {
+        background-color: #0a0a0a !important; border: 1px solid #262626 !important; border-top: 6px solid #22c55e !important; 
+        border-radius: 1rem !important; padding: 4.5rem 2rem !important; box-shadow: 0 10px 15px -3px rgba(0,0,0,0.3) !important;
+        display: flex !important; flex-direction: column !important; align-items: center !important; justify-content: center !important;
+    }
     .custom-yearly-schedule li::marker { content: "" !important; display: none !important; }
 
-    /* ★すべての文字（春リーグなど）を強制的に特大にする */
-    .custom-yearly-schedule p,
-    .custom-yearly-schedule div,
-    .custom-yearly-schedule li,
-    .custom-yearly-schedule span {
-        display: block !important;
-        color: #ffffff !important;
-        font-size: 1.8rem !important; /* スマホでの文字サイズ */
-        font-weight: bold !important;
-        margin-bottom: 1.5rem !important;
+    /* ★予定内容（春リーグなど）の下の余白を大きく確保 */
+    .custom-yearly-schedule p, .custom-yearly-schedule div, .custom-yearly-schedule span {
+        display: block !important; color: #ffffff !important; font-size: 1.6rem !important; font-weight: bold !important; 
+        margin: 0 0 2rem 0 !important; /* 下の余白を追加 */
+        padding-bottom: 2rem !important; /* さらに内側の余白を追加して絶対に詰まらないようにする */
         line-height: 1.6 !important;
-        padding-left: 1.5rem !important;
-        border-left: 2px solid #333333 !important; /* 予定を繋ぐ左の縦ライン */
-        margin-left: 2rem !important;
     }
     @media (min-width: 768px) {
-        .custom-yearly-schedule p,
-        .custom-yearly-schedule div,
-        .custom-yearly-schedule li,
-        .custom-yearly-schedule span {
-            font-size: 2.4rem !important; /* PCでの文字サイズ（超巨大に！） */
-            padding-left: 2.5rem !important;
-            margin-left: 3rem !important;
-        }
+        .custom-yearly-schedule p, .custom-yearly-schedule div, .custom-yearly-schedule span { font-size: 2rem !important; }
     }
 
-    /* ★〇月の部分（強制的に緑のバッジにしてライン上に乗せる） */
-    .custom-yearly-schedule b,
-    .custom-yearly-schedule strong {
-        display: inline-block !important;
-        background-color: #22c55e !important;
-        color: #000000 !important;
-        font-size: 2rem !important;
-        font-weight: 900 !important;
-        font-style: italic !important;
-        padding: 0.2rem 1.5rem !important;
-        border-radius: 999px !important;
-        margin-top: 2rem !important; /* 上の予定とのすき間 */
-        margin-bottom: 1.5rem !important;
-        margin-left: -1.5rem !important; /* 縦ラインから左に少し飛び出させる */
-        border: none !important;
+    /* ★〇月（8月など）の上の余白を大きく確保 */
+    .custom-yearly-schedule b, .custom-yearly-schedule strong {
+        display: block !important; color: #22c55e !important; font-size: 3rem !important; font-weight: 900 !important; font-style: italic !important; 
+        margin-top: 4rem !important; /* ★ここが最大のポイント！前の予定との間をガッツリ離す */
+        margin-bottom: 2.5rem !important; 
+        border-bottom: 2px solid #262626 !important; 
+        padding-bottom: 1.5rem !important; 
+        width: 100% !important; text-align: center !important; line-height: 1 !important;
     }
     @media (min-width: 768px) {
-        .custom-yearly-schedule b,
-        .custom-yearly-schedule strong {
-            font-size: 2.8rem !important;
-            margin-left: -2.5rem !important;
-        }
+        .custom-yearly-schedule b, .custom-yearly-schedule strong { font-size: 3.5rem !important; margin-top: 5rem !important; }
     }
+    .custom-yearly-schedule br { display: none !important; }
 </style>
 
 <div class="bg-neutral-900 border-b border-black py-24 px-4 text-center relative overflow-hidden">

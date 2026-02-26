@@ -13,7 +13,8 @@ class MatchEntry(models.Model):
     OUTCOME_CHOICES = [('win', '勝ち'), ('lose', '負け'), ('draw', '引き分け'), ('none', '未定')]
 
     competition_category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, verbose_name="大会カテゴリ")
-    competition_name = models.CharField(max_length=100, blank=True, verbose_name="大会名")
+    # ★ヘルプテキストを追加して「その他」の用途をわかりやすくしました
+    competition_name = models.CharField(max_length=100, blank=True, verbose_name="大会名", help_text="「その他」を選択した場合は、ここに大会名（例: 西日本インカレ、七大戦など）を入力してください")
     opponent_name = models.CharField(max_length=100, verbose_name="対戦相手")
     match_datetime = models.DateTimeField(verbose_name="試合日時")
     venue_name = models.CharField(max_length=100, verbose_name="会場名")
@@ -43,7 +44,6 @@ class MatchEntry(models.Model):
 
     def clean(self):
         super().clean()
-        # MVP要件: 終了した試合はスコア必須
         if self.status == 'finished':
             required_scores = [
                 self.score_kyodai_total, self.score_opponent_total,
@@ -53,7 +53,6 @@ class MatchEntry(models.Model):
             if any(score is None for score in required_scores):
                 raise ValidationError("試合終了(finished)の場合、すべてのスコアを入力してください。")
         elif self.status == 'scheduled':
-            # 予定の場合はスコアをリセット
             self.score_kyodai_total = self.score_opponent_total = None
             self.score_kyodai_first_half = self.score_opponent_first_half = None
             self.score_kyodai_second_half = self.score_opponent_second_half = None
@@ -75,11 +74,12 @@ class StandingTable(models.Model):
         return self.title
 
 class MatchHubPage(Page):
-    # テンプレートにコンテキストを渡す
     def get_context(self, request):
         context = super().get_context(request)
         matches = MatchEntry.objects.filter(is_published=True).order_by('-match_datetime')
         context['spring_matches'] = matches.filter(competition_category='spring')
         context['autumn_matches'] = matches.filter(competition_category='autumn')
+        # ★「その他」の試合をテンプレートに送る
+        context['other_matches'] = matches.filter(competition_category='other')
         context['tables'] = StandingTable.objects.filter(is_published=True)
         return context

@@ -27,6 +27,12 @@
             <{% if member.intro_url %}a href="{{ member.intro_url }}" target="_blank" rel="noopener noreferrer"{% else %}div{% endif %} class="group bg-neutral-900 rounded-2xl overflow-hidden shadow-2xl border border-neutral-800 {% if member.intro_url %}hover:border-kyodaigreen cursor-pointer{% else %}hover:border-neutral-700{% endif %} transition duration-500 relative flex flex-col h-full">
                 
                 <div class="relative h-80 bg-black overflow-hidden border-b border-neutral-800">
+                    {% if member.number %}
+                        <div class="absolute top-0 left-0 bg-kyodaigreen text-black font-black text-3xl italic px-4 py-2 rounded-br-2xl shadow-lg z-20 border-r-2 border-b-2 border-black">
+                            {{ member.number }}
+                        </div>
+                    {% endif %}
+
                     {% if member.photo %}
                         {% image member.photo fill-400x500 class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" %}
                     {% else %}
@@ -36,12 +42,12 @@
                         </div>
                     {% endif %}
                     
-                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent">
+                    <div class="absolute bottom-0 left-0 w-full p-4 bg-gradient-to-t from-black/90 to-transparent z-10">
                         <div class="text-kyodaigreen font-black text-lg italic tracking-widest">{{ member.position|default:"-" }}</div>
                     </div>
                 </div>
 
-                <div class="p-6 flex-grow flex flex-col relative">
+                <div class="p-6 flex-grow flex flex-col relative z-10">
                     {% if member.intro_url %}
                         <div class="absolute top-6 right-6 text-neutral-600 group-hover:text-kyodaigreen transition">
                             <svg class="w-5 h-5 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>

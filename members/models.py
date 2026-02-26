@@ -10,13 +10,16 @@ class Member(models.Model):
     
     name = models.CharField(max_length=50, verbose_name="名前")
     role_type = models.CharField(max_length=20, choices=ROLE_CHOICES, default='player', verbose_name="役職")
+    
+    # ★背番号を追加
+    number = models.PositiveIntegerField(null=True, blank=True, verbose_name="背番号")
+    
     grade = models.CharField(max_length=20, verbose_name="学年", help_text="例: 3回生")
     position = models.CharField(max_length=50, blank=True, verbose_name="ポジション")
     hometown = models.CharField(max_length=50, blank=True, verbose_name="出身地/出身校")
     profile_text = models.TextField(blank=True, verbose_name="紹介文")
     intro_url = models.URLField(blank=True, verbose_name="紹介記事のURL", help_text="クリック時の飛び先URL（空欄の場合はリンクになりません）")
     
-    # 画像はWagtail標準のImageモデルと紐づけ
     photo = models.ForeignKey(
         'wagtailimages.Image', null=True, blank=True, on_delete=models.SET_NULL, related_name='+'
     )
@@ -24,10 +27,11 @@ class Member(models.Model):
     display_order = models.IntegerField(default=0, verbose_name="表示順", help_text="数字が小さいほど上に表示されます")
     is_published = models.BooleanField(default=True, verbose_name="公開する")
 
+    # ★管理画面のパネルに number を追加
     panels = [
-        FieldPanel('name'), FieldPanel('role_type'), FieldPanel('grade'),
-        FieldPanel('position'), FieldPanel('hometown'), FieldPanel('profile_text'),
-        FieldPanel('intro_url'),
+        FieldPanel('name'), FieldPanel('role_type'), FieldPanel('number'),
+        FieldPanel('grade'), FieldPanel('position'), FieldPanel('hometown'), 
+        FieldPanel('profile_text'), FieldPanel('intro_url'),
         FieldPanel('photo'), FieldPanel('display_order'), FieldPanel('is_published'),
     ]
 
@@ -35,6 +39,9 @@ class Member(models.Model):
         ordering = ['display_order', 'id']
 
     def __str__(self):
+        # 管理画面の一覧でも背番号がわかるように変更
+        if self.number:
+            return f"[{self.number}] {self.name} ({self.get_role_type_display()})"
         return f"{self.name} ({self.get_role_type_display()})"
 
 class MembersPage(Page):

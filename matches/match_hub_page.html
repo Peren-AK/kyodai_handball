@@ -1,47 +1,205 @@
 {% extends "base.html" %}
 {% load wagtailcore_tags %}
 
-{% block content %}
-<div class="max-w-4xl mx-auto p-4">
-    <h1 class="text-3xl font-bold mb-8 border-l-4 border-kyodaigreen pl-3">試合情報・結果</h1>
+{% block title %}{{ page.title }} | MATCHES{% endblock %}
 
-    <section class="mb-12">
-        <h2 class="text-2xl font-semibold mb-4 text-kyodaigreen">春リーグ</h2>
-        
+{% block content %}
+<div class="bg-neutral-900 border-b border-black py-24 px-4 text-center relative overflow-hidden">
+    <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-[150px] font-black text-white opacity-5 italic whitespace-nowrap z-0 pointer-events-none">
+        MATCH RESULTS
+    </div>
+    <div class="relative z-10">
+        <h1 class="text-5xl md:text-7xl font-black text-white italic tracking-widest mb-4">MATCHES</h1>
+        <p class="text-kyodaigreen font-bold tracking-widest">{{ page.title }}</p>
+    </div>
+</div>
+
+<div class="max-w-5xl mx-auto p-4 py-16">
+    
+    <section class="mb-24">
+        <div class="flex items-end mb-10 border-b border-neutral-800 pb-4">
+            <h2 class="text-4xl font-black text-white tracking-widest italic leading-none">SPRING <span class="text-kyodaigreen">LEAGUE</span></h2>
+            <span class="ml-4 text-gray-400 font-bold mb-1">春季リーグ</span>
+        </div>
+
         {% for table in tables %}
             {% if table.competition_category == 'spring' %}
-                <div class="mb-6 overflow-x-auto bg-neutral-800 p-4 rounded">
-                    <h3 class="font-bold mb-2">{{ table.title }}</h3>
-                    <div class="prose prose-invert prose-td:border prose-td:border-neutral-700 prose-th:bg-neutral-700">
-                        {{ table.table_data }}
-                    </div>
+            <div class="mb-12 bg-neutral-900 rounded-2xl p-6 md:p-8 shadow-xl border border-neutral-800 overflow-x-auto">
+                <h3 class="text-xl font-bold text-white mb-6 border-l-4 border-kyodaigreen pl-3">{{ table.title }}</h3>
+                <div class="w-full text-sm md:text-base 
+                            [&_table]:w-full [&_table]:border-collapse [&_table]:min-w-[600px]
+                            [&_th]:border [&_th]:border-neutral-700 [&_th]:p-3 [&_th]:bg-black [&_th]:text-kyodaigreen [&_th]:font-bold
+                            [&_td]:border [&_td]:border-neutral-800 [&_td]:p-3 [&_td]:text-center [&_td]:text-gray-300">
+                    {{ table.table_data }}
                 </div>
+            </div>
             {% endif %}
         {% endfor %}
 
-        <div class="space-y-4">
-        {% for match in spring_matches %}
-            <div class="bg-neutral-800 border border-neutral-700 rounded-lg p-4 flex flex-col md:flex-row justify-between items-center">
-                <div class="mb-2 md:mb-0">
-                    <span class="text-sm text-gray-400">{{ match.match_datetime|date:"Y/m/d H:i" }} @{{ match.venue_name }}</span>
-                    <h3 class="text-xl font-bold mt-1">vs {{ match.opponent_name }}</h3>
-                </div>
-                {% if match.status == 'finished' %}
-                    <div class="text-center">
-                        <span class="text-2xl font-bold {% if match.result_outcome == 'win' %}text-kyodaigreen{% elif match.result_outcome == 'lose' %}text-red-500{% endif %}">
-                            {{ match.score_kyodai_total }} - {{ match.score_opponent_total }}
-                        </span>
-                        <div class="text-xs text-gray-400">
-                            前半: {{ match.score_kyodai_first_half }}-{{ match.score_opponent_first_half }} <br>
-                            後半: {{ match.score_kyodai_second_half }}-{{ match.score_opponent_second_half }}
+        <div class="space-y-6">
+            {% for match in spring_matches %}
+                <div class="bg-neutral-900 border border-neutral-800 hover:border-kyodaigreen rounded-2xl p-6 md:p-8 transition duration-500 flex flex-col md:flex-row justify-between items-center group shadow-lg">
+                    <div class="w-full md:w-1/3 mb-4 md:mb-0 text-center md:text-left">
+                        <div class="text-sm text-kyodaigreen font-bold mb-1 tracking-wider">{{ match.match_datetime|date:"Y.m.d H:i" }}</div>
+                        <div class="text-gray-400 text-sm font-bold flex items-center justify-center md:justify-start">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            {{ match.venue_name }}
                         </div>
                     </div>
-                {% else %}
-                    <span class="px-3 py-1 bg-neutral-700 rounded-full text-sm">試合予定</span>
-                {% endif %}
-            </div>
-        {% endfor %}
+                    <div class="w-full md:w-1/3 text-center mb-4 md:mb-0">
+                        <div class="text-2xl font-black text-white mb-2 italic tracking-wider">vs {{ match.opponent_name }}</div>
+                        {% if match.status == 'scheduled' %}
+                            <span class="inline-block bg-white text-black text-xs font-black px-4 py-1 rounded-full tracking-widest">NEXT MATCH</span>
+                        {% endif %}
+                    </div>
+                    <div class="w-full md:w-1/3 text-center md:text-right">
+                        {% if match.status == 'finished' %}
+                            <div class="text-5xl font-black {% if match.result_outcome == 'win' %}text-kyodaigreen{% elif match.result_outcome == 'lose' %}text-red-500{% else %}text-white{% endif %} italic">
+                                {{ match.score_kyodai_total }} - {{ match.score_opponent_total }}
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2 font-bold tracking-widest">
+                                前半 {{ match.score_kyodai_first_half }}-{{ match.score_opponent_first_half }} / 
+                                後半 {{ match.score_kyodai_second_half }}-{{ match.score_opponent_second_half }}
+                            </div>
+                        {% elif match.status == 'cancelled' %}
+                            <div class="text-gray-500 font-bold tracking-widest border border-gray-600 inline-block px-4 py-2 rounded">MATCH CANCELLED</div>
+                        {% else %}
+                            <div class="text-gray-600 font-bold tracking-widest italic text-xl">SCHEDULED</div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="text-center py-12 bg-neutral-900 border border-neutral-800 rounded-2xl">
+                    <p class="text-gray-500 font-bold tracking-widest">現在、登録されている春季リーグの試合はありません。</p>
+                </div>
+            {% endfor %}
         </div>
     </section>
+
+    <section class="mb-24">
+        <div class="flex items-end mb-10 border-b border-neutral-800 pb-4">
+            <h2 class="text-4xl font-black text-white tracking-widest italic leading-none">AUTUMN <span class="text-kyodaigreen">LEAGUE</span></h2>
+            <span class="ml-4 text-gray-400 font-bold mb-1">秋季リーグ</span>
+        </div>
+
+        {% for table in tables %}
+            {% if table.competition_category == 'autumn' %}
+            <div class="mb-12 bg-neutral-900 rounded-2xl p-6 md:p-8 shadow-xl border border-neutral-800 overflow-x-auto">
+                <h3 class="text-xl font-bold text-white mb-6 border-l-4 border-kyodaigreen pl-3">{{ table.title }}</h3>
+                <div class="w-full text-sm md:text-base 
+                            [&_table]:w-full [&_table]:border-collapse [&_table]:min-w-[600px]
+                            [&_th]:border [&_th]:border-neutral-700 [&_th]:p-3 [&_th]:bg-black [&_th]:text-kyodaigreen [&_th]:font-bold
+                            [&_td]:border [&_td]:border-neutral-800 [&_td]:p-3 [&_td]:text-center [&_td]:text-gray-300">
+                    {{ table.table_data }}
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="space-y-6">
+            {% for match in autumn_matches %}
+                <div class="bg-neutral-900 border border-neutral-800 hover:border-kyodaigreen rounded-2xl p-6 md:p-8 transition duration-500 flex flex-col md:flex-row justify-between items-center group shadow-lg">
+                    <div class="w-full md:w-1/3 mb-4 md:mb-0 text-center md:text-left">
+                        <div class="text-sm text-kyodaigreen font-bold mb-1 tracking-wider">{{ match.match_datetime|date:"Y.m.d H:i" }}</div>
+                        <div class="text-gray-400 text-sm font-bold flex items-center justify-center md:justify-start">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            {{ match.venue_name }}
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 text-center mb-4 md:mb-0">
+                        <div class="text-2xl font-black text-white mb-2 italic tracking-wider">vs {{ match.opponent_name }}</div>
+                        {% if match.status == 'scheduled' %}
+                            <span class="inline-block bg-white text-black text-xs font-black px-4 py-1 rounded-full tracking-widest">NEXT MATCH</span>
+                        {% endif %}
+                    </div>
+                    <div class="w-full md:w-1/3 text-center md:text-right">
+                        {% if match.status == 'finished' %}
+                            <div class="text-5xl font-black {% if match.result_outcome == 'win' %}text-kyodaigreen{% elif match.result_outcome == 'lose' %}text-red-500{% else %}text-white{% endif %} italic">
+                                {{ match.score_kyodai_total }} - {{ match.score_opponent_total }}
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2 font-bold tracking-widest">
+                                前半 {{ match.score_kyodai_first_half }}-{{ match.score_opponent_first_half }} / 
+                                後半 {{ match.score_kyodai_second_half }}-{{ match.score_opponent_second_half }}
+                            </div>
+                        {% elif match.status == 'cancelled' %}
+                            <div class="text-gray-500 font-bold tracking-widest border border-gray-600 inline-block px-4 py-2 rounded">MATCH CANCELLED</div>
+                        {% else %}
+                            <div class="text-gray-600 font-bold tracking-widest italic text-xl">SCHEDULED</div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="text-center py-12 bg-neutral-900 border border-neutral-800 rounded-2xl">
+                    <p class="text-gray-500 font-bold tracking-widest">現在、登録されている秋季リーグの試合はありません。</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
+    <section class="mb-12">
+        <div class="flex items-end mb-10 border-b border-neutral-800 pb-4">
+            <h2 class="text-4xl font-black text-white tracking-widest italic leading-none">OTHER <span class="text-kyodaigreen">MATCHES</span></h2>
+            <span class="ml-4 text-gray-400 font-bold mb-1">その他大会・定期戦</span>
+        </div>
+
+        {% for table in tables %}
+            {% if table.competition_category == 'other' %}
+            <div class="mb-12 bg-neutral-900 rounded-2xl p-6 md:p-8 shadow-xl border border-neutral-800 overflow-x-auto">
+                <h3 class="text-xl font-bold text-white mb-6 border-l-4 border-kyodaigreen pl-3">{{ table.title }}</h3>
+                <div class="w-full text-sm md:text-base 
+                            [&_table]:w-full [&_table]:border-collapse [&_table]:min-w-[600px]
+                            [&_th]:border [&_th]:border-neutral-700 [&_th]:p-3 [&_th]:bg-black [&_th]:text-kyodaigreen [&_th]:font-bold
+                            [&_td]:border [&_td]:border-neutral-800 [&_td]:p-3 [&_td]:text-center [&_td]:text-gray-300">
+                    {{ table.table_data }}
+                </div>
+            </div>
+            {% endif %}
+        {% endfor %}
+
+        <div class="space-y-6">
+            {% for match in other_matches %}
+                <div class="bg-neutral-900 border border-neutral-800 hover:border-kyodaigreen rounded-2xl p-6 md:p-8 transition duration-500 flex flex-col md:flex-row justify-between items-center group shadow-lg">
+                    <div class="w-full md:w-1/3 mb-4 md:mb-0 text-center md:text-left">
+                        <div class="text-sm text-kyodaigreen font-bold mb-1 tracking-wider">{{ match.match_datetime|date:"Y.m.d H:i" }}</div>
+                        <div class="text-gray-400 text-sm font-bold flex items-center justify-center md:justify-start">
+                            <svg class="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            {{ match.venue_name }}
+                        </div>
+                    </div>
+                    <div class="w-full md:w-1/3 text-center mb-4 md:mb-0">
+                        {% if match.competition_name %}
+                            <div class="text-xs text-gray-400 font-bold mb-2 border border-neutral-700 inline-block px-3 py-1 rounded-full">{{ match.competition_name }}</div>
+                        {% endif %}
+                        
+                        <div class="text-2xl font-black text-white mb-2 italic tracking-wider">vs {{ match.opponent_name }}</div>
+                        
+                        {% if match.status == 'scheduled' %}
+                            <span class="inline-block bg-white text-black text-xs font-black px-4 py-1 rounded-full tracking-widest">NEXT MATCH</span>
+                        {% endif %}
+                    </div>
+                    <div class="w-full md:w-1/3 text-center md:text-right">
+                        {% if match.status == 'finished' %}
+                            <div class="text-5xl font-black {% if match.result_outcome == 'win' %}text-kyodaigreen{% elif match.result_outcome == 'lose' %}text-red-500{% else %}text-white{% endif %} italic">
+                                {{ match.score_kyodai_total }} - {{ match.score_opponent_total }}
+                            </div>
+                            <div class="text-xs text-gray-500 mt-2 font-bold tracking-widest">
+                                前半 {{ match.score_kyodai_first_half }}-{{ match.score_opponent_first_half }} / 
+                                後半 {{ match.score_kyodai_second_half }}-{{ match.score_opponent_second_half }}
+                            </div>
+                        {% elif match.status == 'cancelled' %}
+                            <div class="text-gray-500 font-bold tracking-widest border border-gray-600 inline-block px-4 py-2 rounded">MATCH CANCELLED</div>
+                        {% else %}
+                            <div class="text-gray-600 font-bold tracking-widest italic text-xl">SCHEDULED</div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% empty %}
+                <div class="text-center py-12 bg-neutral-900 border border-neutral-800 rounded-2xl">
+                    <p class="text-gray-500 font-bold tracking-widest">現在、登録されているその他の試合はありません。</p>
+                </div>
+            {% endfor %}
+        </div>
+    </section>
+
 </div>
 {% endblock %}

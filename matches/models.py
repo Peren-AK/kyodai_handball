@@ -5,6 +5,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
+from wagtail import blocks # ★追加
 
 @register_snippet
 class MatchEntry(models.Model):
@@ -13,7 +14,6 @@ class MatchEntry(models.Model):
     OUTCOME_CHOICES = [('win', '勝ち'), ('lose', '負け'), ('draw', '引き分け'), ('none', '未定')]
 
     competition_category = models.CharField(max_length=20, choices=CATEGORY_CHOICES, verbose_name="大会カテゴリ")
-    # ★ヘルプテキストを追加して「その他」の用途をわかりやすくしました
     competition_name = models.CharField(max_length=100, blank=True, verbose_name="大会名", help_text="「その他」を選択した場合は、ここに大会名（例: 西日本インカレ、七大戦など）を入力してください")
     opponent_name = models.CharField(max_length=100, verbose_name="対戦相手")
     match_datetime = models.DateTimeField(verbose_name="試合日時")
@@ -21,7 +21,6 @@ class MatchEntry(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled', verbose_name="ステータス")
     result_outcome = models.CharField(max_length=20, choices=OUTCOME_CHOICES, default='none', verbose_name="勝敗")
 
-    # スコア
     score_kyodai_total = models.PositiveIntegerField(null=True, blank=True, verbose_name="京大 合計")
     score_opponent_total = models.PositiveIntegerField(null=True, blank=True, verbose_name="相手 合計")
     score_kyodai_first_half = models.PositiveIntegerField(null=True, blank=True, verbose_name="京大 前半")
@@ -74,12 +73,23 @@ class StandingTable(models.Model):
         return self.title
 
 class MatchHubPage(Page):
+    # ★過去の戦績を追加（年と内容をセットでいくらでも追加可能）
+    past_records = StreamField([
+        ('record', blocks.StructBlock([
+            ('year', blocks.CharBlock(label="年度", help_text="例: 2025年度")),
+            ('details', blocks.RichTextBlock(label="戦績詳細")),
+        ], label="過去の戦績")),
+    ], blank=True, use_json_field=True, verbose_name="過去の戦績まとめ")
+
+    content_panels = Page.content_panels + [
+        FieldPanel('past_records'),
+    ]
+
     def get_context(self, request):
         context = super().get_context(request)
         matches = MatchEntry.objects.filter(is_published=True).order_by('-match_datetime')
         context['spring_matches'] = matches.filter(competition_category='spring')
         context['autumn_matches'] = matches.filter(competition_category='autumn')
-        # ★「その他」の試合をテンプレートに送る
         context['other_matches'] = matches.filter(competition_category='other')
         context['tables'] = StandingTable.objects.filter(is_published=True)
         return context

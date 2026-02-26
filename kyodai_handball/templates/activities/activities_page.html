@@ -68,6 +68,16 @@
 </div>
 
 <div class="max-w-7xl mx-auto p-4 py-16">
+    {% if page.club_profile %}
+    <div class="bg-neutral-900 rounded-2xl p-8 md:p-10 shadow-2xl border border-neutral-800 relative overflow-hidden mb-12">
+        <div class="absolute top-0 right-0 opacity-5 text-8xl md:text-9xl font-black italic -mt-4 -mr-4">PROFILE</div>
+        <h2 class="text-3xl font-black text-white tracking-widest italic mb-6 border-l-4 border-kyodaigreen pl-4 relative z-10">CLUB <span class="text-kyodaigreen">PROFILE</span></h2>
+        
+        <div class="prose prose-invert prose-green max-w-none relative z-10 [&_p]:font-bold [&_p]:tracking-wider [&_p]:text-lg md:[&_p]:text-xl [&_p]:text-gray-200 [&_p]:leading-loose">
+            {{ page.club_profile|richtext }}
+        </div>
+    </div>
+    {% endif %}
     
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
         

@@ -201,5 +201,30 @@
         </div>
     </section>
 
+    {% if page.past_records %}
+    <section class="mb-24">
+        <div class="flex items-end mb-10 border-b border-neutral-800 pb-4">
+            <h2 class="text-4xl font-black text-white tracking-widest italic leading-none">PAST <span class="text-kyodaigreen">RECORDS</span></h2>
+            <span class="ml-4 text-gray-400 font-bold mb-1">過去の戦績</span>
+        </div>
+
+        <div class="space-y-4">
+            {% for block in page.past_records %}
+                <details class="group bg-neutral-900 border border-neutral-800 rounded-xl shadow-lg [&_summary::-webkit-details-marker]:hidden cursor-pointer transition duration-300 hover:border-kyodaigreen">
+                    <summary class="flex justify-between items-center font-black list-none p-6 text-xl text-white outline-none">
+                        <span>{{ block.value.year }} の戦績を見る</span>
+                        <span class="transition group-open:rotate-180 text-kyodaigreen">
+                            <svg fill="none" height="24" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
+                        </span>
+                    </summary>
+                    <div class="text-gray-300 px-6 pb-6 prose prose-invert prose-green max-w-none [&_p]:font-bold [&_p]:tracking-wider [&_p]:text-sm md:[&_p]:text-base [&_p]:leading-loose border-t border-neutral-800 pt-6 mt-2">
+                        {{ block.value.details|richtext }}
+                    </div>
+                </details>
+            {% endfor %}
+        </div>
+    </section>
+    {% endif %}
+
 </div>
 {% endblock %}

@@ -5,7 +5,7 @@ from wagtail.snippets.models import register_snippet
 from wagtail.admin.panels import FieldPanel
 from wagtail.fields import StreamField
 from wagtail.contrib.table_block.blocks import TableBlock
-from wagtail import blocks # ★追加
+from wagtail import blocks
 
 @register_snippet
 class MatchEntry(models.Model):
@@ -21,6 +21,9 @@ class MatchEntry(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled', verbose_name="ステータス")
     result_outcome = models.CharField(max_length=20, choices=OUTCOME_CHOICES, default='none', verbose_name="勝敗")
 
+    # ★YouTubeリンクを追加
+    youtube_url = models.URLField(blank=True, verbose_name="YouTubeリンク", help_text="配信やハイライトのURLがあれば入力してください")
+
     score_kyodai_total = models.PositiveIntegerField(null=True, blank=True, verbose_name="京大 合計")
     score_opponent_total = models.PositiveIntegerField(null=True, blank=True, verbose_name="相手 合計")
     score_kyodai_first_half = models.PositiveIntegerField(null=True, blank=True, verbose_name="京大 前半")
@@ -35,6 +38,7 @@ class MatchEntry(models.Model):
         FieldPanel('competition_category'), FieldPanel('competition_name'),
         FieldPanel('opponent_name'), FieldPanel('match_datetime'),
         FieldPanel('venue_name'), FieldPanel('status'), FieldPanel('result_outcome'),
+        FieldPanel('youtube_url'), # ★管理画面に追加
         FieldPanel('score_kyodai_total'), FieldPanel('score_opponent_total'),
         FieldPanel('score_kyodai_first_half'), FieldPanel('score_opponent_first_half'),
         FieldPanel('score_kyodai_second_half'), FieldPanel('score_opponent_second_half'),
@@ -73,7 +77,6 @@ class StandingTable(models.Model):
         return self.title
 
 class MatchHubPage(Page):
-    # ★過去の戦績を追加（年と内容をセットでいくらでも追加可能）
     past_records = StreamField([
         ('record', blocks.StructBlock([
             ('year', blocks.CharBlock(label="年度", help_text="例: 2025年度")),

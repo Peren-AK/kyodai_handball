@@ -26,7 +26,8 @@
 </div>
 
 <div id="recent-matches" class="max-w-7xl mx-auto p-4 py-20 grid md:grid-cols-2 gap-8">
-    <div class="bg-neutral-800 p-8 rounded-2xl border-t-4 border-kyodaigreen shadow-2xl relative overflow-hidden">
+    
+    <div class="bg-neutral-800 p-8 rounded-2xl border-t-4 border-kyodaigreen shadow-2xl relative overflow-hidden flex flex-col">
         <div class="absolute top-0 right-0 opacity-10 text-9xl font-black italic -mt-4 -mr-4">RESULT</div>
         <h2 class="text-2xl font-black mb-6 flex items-center tracking-widest relative z-10">
             <span class="bg-kyodaigreen text-black text-sm px-3 py-1 mr-3 italic">RESULT</span> 最新結果
@@ -46,13 +47,21 @@
                     {{ latest_result.score_kyodai_total }} - {{ latest_result.score_opponent_total }}
                 </div>
             </div>
-            <div class="text-right">
-                <a href="{% slugurl 'matches' %}" class="text-kyodaigreen hover:text-white font-bold transition">すべての結果を見る ➔</a>
+            
+            <div class="flex justify-between items-center relative z-10 mt-auto pt-2">
+                <div>
+                    {% if latest_result.youtube_url %}
+                    <a href="{{ latest_result.youtube_url }}" target="_blank" rel="noopener noreferrer" class="text-red-500 hover:text-red-400 font-bold transition flex items-center text-sm bg-neutral-900 px-4 py-2 rounded-full border border-neutral-700 hover:border-red-500">
+                        <i class="fab fa-youtube mr-2 text-lg"></i>ハイライト動画
+                    </a>
+                    {% endif %}
+                </div>
+                <a href="{% slugurl 'matches' %}" class="text-kyodaigreen hover:text-white font-bold transition text-sm">すべての結果を見る ➔</a>
             </div>
         {% endif %}
     </div>
 
-    <div class="bg-neutral-800 p-8 rounded-2xl border-t-4 border-white shadow-2xl relative overflow-hidden">
+    <div class="bg-neutral-800 p-8 rounded-2xl border-t-4 border-white shadow-2xl relative overflow-hidden flex flex-col">
         <div class="absolute top-0 right-0 opacity-10 text-9xl font-black italic -mt-4 -mr-4">NEXT</div>
         <h2 class="text-2xl font-black mb-6 flex items-center tracking-widest relative z-10">
             <span class="bg-white text-black text-sm px-3 py-1 mr-3 italic">NEXT</span> 次戦のお知らせ
@@ -68,9 +77,16 @@
                 @ {{ next_match.venue_name }}
             </p>
             <div class="text-2xl font-bold border-b border-neutral-700 pb-6 mb-4 relative z-10">vs {{ next_match.opponent_name }}</div>
-            {% if next_match.spectator_info %}
-                <p class="text-sm text-kyodaigreen font-bold">※{{ next_match.spectator_info }}</p>
-            {% endif %}
+            
+            <div class="flex justify-between items-end relative z-10 mt-auto pt-2">
+                <div>
+                    {% if next_match.youtube_url %}
+                    <a href="{{ next_match.youtube_url }}" target="_blank" rel="noopener noreferrer" class="text-red-500 hover:text-red-400 font-bold transition flex items-center text-sm bg-neutral-900 px-4 py-2 rounded-full border border-neutral-700 hover:border-red-500">
+                        <i class="fab fa-youtube mr-2 text-lg"></i>ライブ配信
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
         {% endif %}
     </div>
 </div>

@@ -120,6 +120,42 @@
     </a>
 </div>
 
+<div class="max-w-7xl mx-auto p-4 py-24">
+    <div class="flex items-end mb-10 border-b border-neutral-800 pb-4">
+        <h2 class="text-4xl font-black text-white tracking-widest italic leading-none">LATEST <span class="text-kyodaigreen">BLOGS</span></h2>
+        <span class="ml-4 text-gray-400 font-bold mb-1">最新の活動ブログ</span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {% for blog in latest_blogs %}
+        <a href="{% pageurl blog %}" class="bg-neutral-800 border border-neutral-700 hover:border-kyodaigreen transition rounded-xl p-6 shadow-md group flex flex-col h-full transform hover:-translate-y-1 duration-300">
+            <div class="mb-4">
+                <span class="text-xs text-gray-400 font-bold tracking-widest flex items-center">
+                    <i class="far fa-clock mr-2 text-kyodaigreen"></i> {{ blog.published_date|date:"Y.m.d" }}
+                    {% if blog.category %}
+                        <span class="text-kyodaigreen ml-3 border-l border-neutral-600 pl-3">{{ blog.category }}</span>
+                    {% endif %}
+                </span>
+            </div>
+            <h3 class="text-xl font-bold text-white group-hover:text-kyodaigreen transition leading-tight mb-4 flex-grow">
+                {{ blog.title }}
+            </h3>
+            <div class="text-right mt-auto">
+                <span class="text-sm font-bold text-kyodaigreen">続きを読む ➔</span>
+            </div>
+        </a>
+        {% empty %}
+        <p class="text-gray-500 font-bold tracking-widest col-span-3">まだ公開されている記事はありません。</p>
+        {% endfor %}
+    </div>
+    
+    <div class="text-center mt-12">
+        <a href="/blog/" class="inline-block bg-transparent text-kyodaigreen border-2 border-kyodaigreen hover:bg-kyodaigreen hover:text-black font-bold py-3 px-10 rounded-full transition tracking-widest">
+            すべての記事を見る
+        </a>
+    </div>
+</div>
+
 <div class="max-w-7xl mx-auto p-4 py-32 md:py-40">
     <div class="bg-neutral-900 rounded-2xl p-8 lg:p-16 border border-neutral-800 relative overflow-hidden text-center shadow-2xl">
         <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-8xl md:text-[140px] font-black text-white opacity-5 italic whitespace-nowrap z-0 pointer-events-none">SOCIAL MEDIA</div>

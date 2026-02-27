@@ -13,6 +13,11 @@
         }
     </script>
 
+    <meta property="og:title" content="{{ page.title }} | 京都大学ハンドボール部">
+    <meta property="og:description" content="京都大学体育会ハンドボール部の公式ウェブサイトです。">
+    <meta property="og:image" content="{% static 'images/ogp-image.jpg' %}">
+    <meta name="twitter:card" content="summary_large_image">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     {% if settings.core.SiteSettings.ga4_measurement_id %}

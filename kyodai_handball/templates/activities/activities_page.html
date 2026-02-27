@@ -5,7 +5,7 @@
 
 {% block content %}
 <style>
-    /* PRACTICE SCHEDULE (同じ) */
+    /* Practice Schedule Styles */
     .custom-practice-schedule { position: relative; z-index: 10; color: #e5e5e5; }
     .custom-practice-schedule p { display: block !important; margin-bottom: 1.5rem !important; font-size: 1.5rem !important; font-weight: bold !important; }
     @media (min-width: 768px) { .custom-practice-schedule p { font-size: 2rem !important; } }
@@ -13,10 +13,10 @@
     @media (min-width: 768px) { .custom-practice-schedule b, .custom-practice-schedule strong { font-size: 3.5rem !important; } }
     .custom-practice-schedule br { display: none !important; }
 
-    /* YEARLY SCHEDULE (シンプル・下線スタイル 余白ゆったり版) */
+    /* Yearly Schedule Styles */
     .custom-yearly-schedule { position: relative; z-index: 10; max-width: 72rem !important; margin: 0 auto; text-align: center; }
     
-    /* リスト入力された場合の保険 */
+    /* Fallback Grid Layout for Lists */
     .custom-yearly-schedule ul {
         display: grid !important; grid-template-columns: 1fr !important; gap: 3rem !important;
         padding: 0 !important; margin: 0 !important; list-style: none !important;
@@ -31,21 +31,21 @@
     }
     .custom-yearly-schedule li::marker { content: "" !important; display: none !important; }
 
-    /* ★予定内容（春リーグなど）の下の余白を大きく確保 */
+    /* Schedule Item Content Spacing */
     .custom-yearly-schedule p, .custom-yearly-schedule div, .custom-yearly-schedule span {
         display: block !important; color: #ffffff !important; font-size: 1.6rem !important; font-weight: bold !important; 
-        margin: 0 0 2rem 0 !important; /* 下の余白を追加 */
-        padding-bottom: 2rem !important; /* さらに内側の余白を追加して絶対に詰まらないようにする */
+        margin: 0 0 2rem 0 !important;
+        padding-bottom: 2rem !important;
         line-height: 1.6 !important;
     }
     @media (min-width: 768px) {
         .custom-yearly-schedule p, .custom-yearly-schedule div, .custom-yearly-schedule span { font-size: 2rem !important; }
     }
 
-    /* ★〇月（8月など）の上の余白を大きく確保 */
+    /* Month Heading Spacing */
     .custom-yearly-schedule b, .custom-yearly-schedule strong {
         display: block !important; color: #22c55e !important; font-size: 3rem !important; font-weight: 900 !important; font-style: italic !important; 
-        margin-top: 4rem !important; /* ★ここが最大のポイント！前の予定との間をガッツリ離す */
+        margin-top: 4rem !important;
         margin-bottom: 2.5rem !important; 
         border-bottom: 2px solid #262626 !important; 
         padding-bottom: 1.5rem !important; 
@@ -80,11 +80,9 @@
     {% endif %}
     
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
-        
         <div class="bg-neutral-900 rounded-2xl p-8 md:p-10 shadow-2xl border border-neutral-800 relative overflow-hidden group hover:border-kyodaigreen transition duration-500">
             <div class="absolute top-0 right-0 opacity-5 text-8xl font-black italic -mt-4 -mr-4 group-hover:scale-110 transition duration-500">SCHEDULE</div>
             <h2 class="text-3xl font-black text-white tracking-widest italic mb-8 border-l-4 border-kyodaigreen pl-4 relative z-10">PRACTICE <span class="text-kyodaigreen">SCHEDULE</span></h2>
-            
             <div class="custom-practice-schedule">
                 {{ page.practice_schedule|richtext }}
             </div>
@@ -151,7 +149,6 @@
     </div>
 
     <div class="bg-gradient-to-r from-neutral-900 to-black rounded-3xl shadow-2xl border border-neutral-800 relative overflow-hidden flex flex-col md:flex-row">
-        
         <div class="p-8 lg:p-12 md:w-3/5 flex flex-col justify-center border-b md:border-b-0 md:border-r border-neutral-800 relative">
             <div class="absolute top-0 left-0 w-2 h-full bg-kyodaigreen"></div>
             <h2 class="text-4xl lg:text-6xl font-black text-white tracking-tighter italic mb-4">JOIN <span class="text-kyodaigreen">US.</span></h2>
@@ -181,6 +178,5 @@
             </a>
         </div>
     </div>
-
 </div>
 {% endblock %}

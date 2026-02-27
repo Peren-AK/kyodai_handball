@@ -8,19 +8,26 @@
     <h1 class="text-3xl font-bold mb-4 border-l-4 border-kyodaigreen pl-3 uppercase tracking-wider">{{ page.title }}</h1>
     
     {% if page.intro %}
-        <p class="text-gray-400 mb-8">{{ page.intro }}</p>
+        <p class="text-gray-400 mb-8 font-bold">{{ page.intro }}</p>
     {% endif %}
 
-    <div class="space-y-6">
+    <div class="space-y-4">
         {% for post in blogpages %}
-        <a href="{% pageurl post %}" class="block bg-neutral-800 border border-neutral-700 hover:border-kyodaigreen transition rounded-lg p-6">
-            <div class="flex flex-col md:flex-row md:items-center justify-between mb-2">
-                <h2 class="text-xl font-bold text-white">{{ post.title }}</h2>
-                <span class="text-sm text-kyodaigreen mt-2 md:mt-0">{{ post.published_date|date:"Y.m.d" }} | {{ post.category }}</span>
-            </div>
+        <a href="{% pageurl post %}" class="flex flex-col md:flex-row md:items-center justify-between bg-neutral-800 border border-neutral-700 hover:border-kyodaigreen transition rounded-xl p-6 shadow-md group">
+            
+            <h2 class="text-xl font-bold text-white mb-3 md:mb-0 group-hover:text-kyodaigreen transition leading-tight">
+                {{ post.title }}
+            </h2>
+            
+            <span class="text-sm text-gray-400 font-bold tracking-widest shrink-0 md:ml-6 flex items-center">
+                <i class="far fa-clock mr-2"></i> {{ post.published_date|date:"Y.m.d H:i" }} 
+                {% if post.category %}
+                    <span class="text-kyodaigreen ml-3 border-l border-neutral-600 pl-3">{{ post.category }}</span>
+                {% endif %}
+            </span>
         </a>
         {% empty %}
-        <p class="text-gray-500">現在公開されている記事はありません。</p>
+        <p class="text-gray-500 font-bold tracking-widest p-6 bg-neutral-900 rounded-xl border border-neutral-800">現在公開されている記事はありません。</p>
         {% endfor %}
     </div>
 </div>

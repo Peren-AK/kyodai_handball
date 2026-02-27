@@ -14,14 +14,23 @@ class BlogIndexPage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
-        # 公開済みの記事（子ページ）を新しい順に取得
-        blogpages = self.get_children().live().order_by('-first_published_at')
+        
+        # ★現在の日時（秒単位まで）を取得
+        now = timezone.now()
+        
+        # ★BlogPageの中から「公開日時が今より過去（lte=now）」のものだけを取得！
+        # （self.get_children() ではなく BlogPage.objects を使うのがポイントです）
+        blogpages = BlogPage.objects.child_of(self).live().filter(
+            published_date__lte=now
+        ).order_by('-published_date')
+        
         context['blogpages'] = blogpages
         return context
 
 class BlogPage(Page):
     """個別のブログ記事ページ"""
-    published_date = models.DateField("公開日", default=timezone.now)
+    # ★DateField(日だけ) から DateTimeField(時間まで) に変更
+    published_date = models.DateTimeField("公開日時", default=timezone.now)
     category = models.CharField("カテゴリ", max_length=50, blank=True, help_text="例: 試合レポート, イベント")
     body = RichTextField(blank=True, verbose_name="本文")
 

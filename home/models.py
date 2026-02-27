@@ -5,7 +5,7 @@ from wagtail.images.models import Image
 from matches.models import MatchEntry
 from blog.models import BlogPage
 from core.models import Sponsor
-from django.utils import timezone # ★この1行が足りていませんでした！
+from django.utils import timezone
 
 class HomePage(Page):
     hero_image = models.ForeignKey(
@@ -23,14 +23,16 @@ class HomePage(Page):
 
     def get_context(self, request):
         context = super().get_context(request)
+        
         context['next_match'] = MatchEntry.objects.filter(status='scheduled', is_published=True).order_by('match_datetime').first()
         context['latest_result'] = MatchEntry.objects.filter(status='finished', is_published=True).order_by('-match_datetime').first()
         
-        # ★現在時刻より過去のブログだけを取得
+        # 予約投稿に対応するため、現在時刻以前の公開記事のみ取得
         now = timezone.now()
         context['latest_blogs'] = BlogPage.objects.live().public().filter(
             published_date__lte=now
         ).order_by('-published_date')[:3]
         
         context['sponsors'] = Sponsor.objects.filter(is_published=True)
+        
         return context

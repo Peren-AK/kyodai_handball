@@ -15,7 +15,8 @@ class SiteSettings(BaseSiteSetting):
     class Meta:
         verbose_name = "サイト全体設定"
 
-# ここからスポンサー用のデータベース
+
+# スポンサーモデル
 @register_snippet
 class Sponsor(models.Model):
     name = models.CharField(max_length=100, verbose_name="スポンサー名")

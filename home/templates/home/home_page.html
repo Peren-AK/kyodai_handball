@@ -149,12 +149,97 @@
     </div>
 </div>
 
-<div class="bg-kyodaigreen text-black py-16 text-center">
-    <div class="max-w-4xl mx-auto px-4">
-        <h2 class="text-3xl md:text-4xl font-black mb-4 italic tracking-widest">SPONSORS</h2>
-        <p class="font-bold mb-8 opacity-80">京都大学ハンドボール部を応援していただける皆様へ</p>
-        <a href="{{ settings.core.SiteSettings.sponsor_form_url }}" target="_blank" class="inline-block bg-black text-white hover:bg-neutral-800 font-bold py-4 px-12 rounded-full transition shadow-lg transform hover:scale-105">
-            支援について詳しく見る
+<style>
+    /* 無限ループスライダー用のアニメーション */
+    @keyframes infinite-scroll {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); } /* 半分（1セット分）まで移動したら0%に戻る */
+    }
+    .sponsor-track {
+        display: flex;
+        width: max-content;
+        /* アニメーションの速度（秒数）を調整できます。短くすると速くなります */
+        animation: infinite-scroll 25s linear infinite;
+    }
+    .sponsor-track:hover {
+        /* マウスを乗せたときに動きを止める */
+        animation-play-state: paused;
+    }
+</style>
+
+<div class="bg-kyodaigreen text-black py-20 text-center overflow-hidden">
+    <div class="max-w-7xl mx-auto px-4 mb-16">
+        <h2 class="text-3xl md:text-5xl font-black mb-4 italic tracking-widest">SPONSORS</h2>
+        <p class="font-bold opacity-80 mb-12 tracking-widest text-sm md:text-base">京都大学ハンドボール部を応援していただいている企業の皆様</p>
+        
+        {% if sponsors %}
+        <div class="relative w-full overflow-hidden flex items-center before:absolute before:left-0 before:top-0 before:z-10 before:h-full before:w-16 md:before:w-32 before:bg-gradient-to-r before:from-kyodaigreen before:to-transparent after:absolute after:right-0 after:top-0 after:z-10 after:h-full after:w-16 md:after:w-32 after:bg-gradient-to-l after:from-kyodaigreen after:to-transparent">
+            
+            <div class="sponsor-track flex items-center gap-12 md:gap-24">
+                
+                {% for sponsor in sponsors %}
+                    <div class="flex-shrink-0 w-40 md:w-56 flex justify-center items-center">
+                        {% if sponsor.url %}
+                        <a href="{{ sponsor.url }}" target="_blank" rel="noopener noreferrer" class="block w-full transition transform hover:scale-110 filter grayscale hover:grayscale-0">
+                        {% else %}
+                        <div class="block w-full filter grayscale hover:grayscale-0 transition">
+                        {% endif %}
+                            
+                            {% if sponsor.logo %}
+                                {% image sponsor.logo width-400 class="max-w-full h-auto object-contain max-h-20 md:max-h-24" %}
+                            {% else %}
+                                <div class="w-full h-20 md:h-24 flex items-center justify-center bg-black/10 rounded-lg font-black text-lg md:text-xl px-4 text-center">{{ sponsor.name }}</div>
+                            {% endif %}
+                            
+                        {% if sponsor.url %}
+                        </a>
+                        {% else %}
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                {% for sponsor in sponsors %}
+                    <div class="flex-shrink-0 w-40 md:w-56 flex justify-center items-center">
+                        {% if sponsor.url %}
+                        <a href="{{ sponsor.url }}" target="_blank" rel="noopener noreferrer" class="block w-full transition transform hover:scale-110 filter grayscale hover:grayscale-0">
+                        {% else %}
+                        <div class="block w-full filter grayscale hover:grayscale-0 transition">
+                        {% endif %}
+                            
+                            {% if sponsor.logo %}
+                                {% image sponsor.logo width-400 class="max-w-full h-auto object-contain max-h-20 md:max-h-24" %}
+                            {% else %}
+                                <div class="w-full h-20 md:h-24 flex items-center justify-center bg-black/10 rounded-lg font-black text-lg md:text-xl px-4 text-center">{{ sponsor.name }}</div>
+                            {% endif %}
+                            
+                        {% if sponsor.url %}
+                        </a>
+                        {% else %}
+                        </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+            </div>
+        </div>
+        {% else %}
+            <div class="py-8 bg-black/5 rounded-2xl border border-black/10 font-bold opacity-70">
+                スポンサー様を募集しております。
+            </div>
+        {% endif %}
+    </div>
+
+    <div class="max-w-4xl mx-auto px-4 mt-16 border-t-2 border-black/10 pt-16">
+        <h3 class="text-2xl md:text-3xl font-black mb-6 tracking-widest">スポンサー・ご協賛について</h3>
+        <p class="font-bold mb-10 opacity-90 text-sm md:text-base leading-loose tracking-wider">
+            京都大学体育会ハンドボール部では、私たちの活動をご支援いただける<br class="hidden md:block">企業様・団体様を募集しております。<br>
+            <br>
+            ご興味をお持ちいただけましたら、まずは以下のフォームよりお気軽にご連絡ください。<br>
+            詳しいご協賛の形式（資金支援、物品提供など）や掲載メリット等について、<br class="hidden md:block">折り返し担当者より具体的なご提案をさせていただきます。
+        </p>
+        <a href="{{ settings.core.SiteSettings.sponsor_form_url }}" target="_blank" class="inline-flex items-center justify-center bg-black text-white hover:bg-neutral-800 font-black py-5 px-10 rounded-full transition shadow-xl transform hover:-translate-y-1 tracking-widest border-2 border-transparent hover:border-kyodaigreen group">
+            <i class="fas fa-handshake mr-3 text-xl group-hover:text-kyodaigreen transition"></i> スポンサーに関するお問い合わせ
         </a>
     </div>
 </div>

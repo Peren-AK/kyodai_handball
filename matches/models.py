@@ -21,7 +21,7 @@ class MatchEntry(models.Model):
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default='scheduled', verbose_name="ステータス")
     result_outcome = models.CharField(max_length=20, choices=OUTCOME_CHOICES, default='none', verbose_name="勝敗")
 
-    # ★YouTubeリンクを追加
+    # 配信・ハイライト用リンク
     youtube_url = models.URLField(blank=True, verbose_name="YouTubeリンク", help_text="配信やハイライトのURLがあれば入力してください")
 
     score_kyodai_total = models.PositiveIntegerField(null=True, blank=True, verbose_name="京大 合計")
@@ -38,7 +38,7 @@ class MatchEntry(models.Model):
         FieldPanel('competition_category'), FieldPanel('competition_name'),
         FieldPanel('opponent_name'), FieldPanel('match_datetime'),
         FieldPanel('venue_name'), FieldPanel('status'), FieldPanel('result_outcome'),
-        FieldPanel('youtube_url'), # ★管理画面に追加
+        FieldPanel('youtube_url'),
         FieldPanel('score_kyodai_total'), FieldPanel('score_opponent_total'),
         FieldPanel('score_kyodai_first_half'), FieldPanel('score_opponent_first_half'),
         FieldPanel('score_kyodai_second_half'), FieldPanel('score_opponent_second_half'),
@@ -64,6 +64,7 @@ class MatchEntry(models.Model):
     def __str__(self):
         return f"[{self.get_status_display()}] {self.match_datetime.strftime('%Y/%m/%d')} vs {self.opponent_name}"
 
+
 @register_snippet
 class StandingTable(models.Model):
     title = models.CharField(max_length=100, verbose_name="表タイトル（例: 2024年 春リーグ）")
@@ -75,6 +76,7 @@ class StandingTable(models.Model):
 
     def __str__(self):
         return self.title
+
 
 class MatchHubPage(Page):
     past_records = StreamField([

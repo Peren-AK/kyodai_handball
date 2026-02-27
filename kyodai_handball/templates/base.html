@@ -13,11 +13,6 @@
         }
     </script>
 
-    <meta property="og:title" content="{{ page.title }} | 京都大学ハンドボール部">
-    <meta property="og:description" content="京都大学体育会ハンドボール部の公式ウェブサイトです。">
-    <meta property="og:image" content="{% static 'images/ogp-image.jpg' %}">
-    <meta name="twitter:card" content="summary_large_image">
-
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     
     {% if settings.core.SiteSettings.ga4_measurement_id %}
@@ -60,8 +55,8 @@
             </div>
         </div>
 
-        <div id="mobile-menu" class="hidden md:hidden bg-black border-t border-neutral-800">
-            <div class="px-4 pt-2 pb-4 space-y-2">
+        <div id="mobile-menu" class="md:hidden overflow-hidden transition-all duration-300 ease-in-out max-h-0 bg-black border-neutral-800">
+            <div class="px-4 pt-2 pb-4 space-y-2 border-t border-neutral-800">
                 <a href="/members/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">TEAM <span class="text-xs text-gray-500 ml-2">メンバー紹介</span></a>
                 <a href="/matches/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">MATCHES <span class="text-xs text-gray-500 ml-2">試合情報</span></a>
                 <a href="/blog/" class="block py-3 text-lg font-bold text-gray-300 hover:text-kyodaigreen border-b border-neutral-800">BLOG <span class="text-xs text-gray-500 ml-2">活動ブログ</span></a>
@@ -104,7 +99,15 @@
 
     <script>
         document.getElementById('mobile-menu-btn').addEventListener('click', function() {
-            document.getElementById('mobile-menu').classList.toggle('hidden');
+            const menu = document.getElementById('mobile-menu');
+            // 高さを 0 と 96(約384px) の間で切り替えることで、スライドダウンさせる
+            if (menu.classList.contains('max-h-0')) {
+                menu.classList.remove('max-h-0');
+                menu.classList.add('max-h-96');
+            } else {
+                menu.classList.remove('max-h-96');
+                menu.classList.add('max-h-0');
+            }
         });
     </script>
 </body>

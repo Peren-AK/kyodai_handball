@@ -34,7 +34,7 @@
                     {% endif %}
 
                     {% if member.photo %}
-                        {% image member.photo fill-400x500 class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" %}
+                        {% image member.photo fill-400x500 class="w-full h-full object-cover object-top group-hover:scale-105 transition duration-700 opacity-90 group-hover:opacity-100" loading="lazy" %}
                     {% else %}
                         <div class="absolute inset-0 flex flex-col items-center justify-center bg-neutral-900">
                             <svg class="w-16 h-16 text-neutral-800 mb-2" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>
@@ -47,24 +47,31 @@
                     </div>
                 </div>
 
-                <div class="p-6 flex-grow flex flex-col relative z-10">
+                <div class="p-6 flex-grow flex flex-col relative z-10 overflow-hidden">
+                    
+                    {% if member.number %}
+                    <div class="absolute -top-6 -right-2 text-8xl md:text-9xl font-black text-white opacity-[0.03] group-hover:opacity-10 group-hover:-translate-x-2 transition duration-500 italic pointer-events-none select-none z-0">
+                        {{ member.number }}
+                    </div>
+                    {% endif %}
+
                     {% if member.intro_url %}
-                        <div class="absolute top-6 right-6 text-neutral-600 group-hover:text-kyodaigreen transition">
+                        <div class="absolute top-6 right-6 text-neutral-600 group-hover:text-kyodaigreen transition z-10">
                             <svg class="w-5 h-5 transform -rotate-45" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
                         </div>
                     {% endif %}
 
-                    <div class="flex justify-between items-start mb-2 pr-6">
+                    <div class="flex justify-between items-start mb-2 pr-6 relative z-10">
                         <h3 class="text-2xl font-black text-white tracking-wider">{{ member.name }}</h3>
                         <span class="bg-neutral-800 text-gray-300 text-xs font-bold px-2 py-1 rounded">{{ member.grade }}</span>
                     </div>
                     
                     {% if member.hometown %}
-                        <p class="text-xs text-gray-500 font-bold tracking-widest mb-4">出身: {{ member.hometown }}</p>
+                        <p class="text-xs text-gray-500 font-bold tracking-widest mb-4 relative z-10">出身: {{ member.hometown }}</p>
                     {% endif %}
                     
                     {% if member.profile_text %}
-                        <p class="text-sm text-gray-400 leading-relaxed mt-auto border-t border-neutral-800 pt-4 max-h-32 overflow-y-auto pr-2">{{ member.profile_text }}</p>
+                        <p class="text-sm text-gray-400 leading-relaxed mt-auto border-t border-neutral-800 pt-4 max-h-32 overflow-y-auto pr-2 relative z-10">{{ member.profile_text }}</p>
                     {% endif %}
                 </div>
             </{% if member.intro_url %}a{% else %}div{% endif %}>
@@ -92,7 +99,7 @@
 
                 <div class="w-24 h-24 mx-auto bg-black rounded-full overflow-hidden mb-4 border-2 border-neutral-700">
                     {% if member.photo %}
-                        {% image member.photo fill-200x200 class="w-full h-full object-cover group-hover:scale-110 transition duration-500" %}
+                        {% image member.photo fill-200x200 class="w-full h-full object-cover group-hover:scale-110 transition duration-500" loading="lazy" %}
                     {% else %}
                         <div class="w-full h-full flex items-center justify-center bg-neutral-800 text-neutral-600">
                             <svg class="w-10 h-10" fill="currentColor" viewBox="0 0 24 24"><path d="M24 20.993V24H0v-2.996A14.977 14.977 0 0112.004 15c4.904 0 9.26 2.354 11.996 5.993zM16.002 8.999a4 4 0 11-8 0 4 4 0 018 0z" /></svg>

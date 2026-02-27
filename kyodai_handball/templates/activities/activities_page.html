@@ -150,17 +150,34 @@
         </div>
     </div>
 
-    <div class="bg-gradient-to-br from-kyodaigreen to-green-700 rounded-3xl p-8 lg:p-16 text-center shadow-2xl transform hover:scale-[1.02] transition duration-500 relative overflow-hidden">
-        <svg class="absolute top-0 right-0 text-black opacity-10 w-64 h-64 -mt-16 -mr-16 transform rotate-12" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2L2 22h20L12 2zm0 4.5l6.5 13.5h-13L12 6.5z"/></svg>
+    <div class="bg-gradient-to-r from-neutral-900 to-black rounded-3xl shadow-2xl border border-neutral-800 relative overflow-hidden flex flex-col md:flex-row">
         
-        <div class="relative z-10">
-            <h2 class="text-4xl lg:text-6xl font-black text-black tracking-tighter italic mb-6">JOIN OUR TEAM</h2>
-            <p class="text-black font-bold mb-10 opacity-90 text-lg md:text-xl tracking-widest">
+        <div class="p-8 lg:p-12 md:w-3/5 flex flex-col justify-center border-b md:border-b-0 md:border-r border-neutral-800 relative">
+            <div class="absolute top-0 left-0 w-2 h-full bg-kyodaigreen"></div>
+            <h2 class="text-4xl lg:text-6xl font-black text-white tracking-tighter italic mb-4">JOIN <span class="text-kyodaigreen">US.</span></h2>
+            <p class="text-gray-300 font-bold text-lg md:text-xl tracking-widest leading-relaxed mb-6">
                 選手・マネージャーともに新入部員を大募集しています！<br>
-                見学や体験参加をご希望の方は、お気軽にお問い合わせください。
+                まずは見学や体験参加で、チームの雰囲気を感じてみませんか？
             </p>
-            <a href="{{ settings.core.SiteSettings.contact_form_url }}" target="_blank" class="inline-block bg-black text-white hover:bg-neutral-800 font-black py-5 px-12 rounded-full transition shadow-xl tracking-widest text-lg md:text-xl border-2 border-transparent hover:border-kyodaigreen">
-                見学申し込み / お問い合わせ ➔
+            <p class="text-kyodaigreen font-bold text-sm tracking-widest">お問い合わせはお気軽にどうぞ！</p>
+        </div>
+
+        <div class="p-8 lg:p-12 md:w-2/5 flex flex-col justify-center gap-6 bg-neutral-900/50">
+            <a href="{{ settings.core.SiteSettings.instagram_url }}" target="_blank" rel="noopener noreferrer" class="group relative overflow-hidden bg-black text-white font-black py-5 px-6 rounded-xl border border-neutral-700 hover:border-pink-500 transition duration-300 flex items-center justify-between shadow-lg">
+                <div class="absolute inset-0 w-0 bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 transition-all duration-500 ease-out group-hover:w-full opacity-20"></div>
+                <div class="relative z-10 flex items-center">
+                    <i class="fab fa-instagram text-3xl text-pink-500 mr-4 group-hover:text-white transition"></i>
+                    <span class="tracking-widest text-lg">Instagram</span>
+                </div>
+                <i class="fas fa-chevron-right text-neutral-500 group-hover:text-white relative z-10 transition"></i>
+            </a>
+
+            <a href="{{ settings.core.SiteSettings.contact_form_url }}" target="_blank" rel="noopener noreferrer" class="group relative overflow-hidden bg-kyodaigreen text-black font-black py-5 px-6 rounded-xl border border-transparent hover:bg-green-400 transition duration-300 flex items-center justify-between shadow-lg">
+                <div class="relative z-10 flex items-center">
+                    <i class="fas fa-envelope text-2xl mr-4"></i>
+                    <span class="tracking-widest text-lg">Google Form</span>
+                </div>
+                <i class="fas fa-arrow-right relative z-10 transform group-hover:translate-x-1 transition"></i>
             </a>
         </div>
     </div>

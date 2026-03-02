@@ -12,6 +12,10 @@ class Member(models.Model):
     role_type = models.CharField(max_length=20, choices=ROLE_CHOICES, default='player', verbose_name="役職")
     number = models.PositiveIntegerField(null=True, blank=True, verbose_name="背番号")
     grade = models.CharField(max_length=20, verbose_name="学年", help_text="例: 3回生")
+    
+    # Academic department or affiliated university
+    department = models.CharField(max_length=50, blank=True, verbose_name="学部/所属大学", help_text="例: 工学部、〇〇女子大学")
+    
     position = models.CharField(max_length=50, blank=True, verbose_name="ポジション")
     hometown = models.CharField(max_length=50, blank=True, verbose_name="出身地/出身校")
     profile_text = models.TextField(blank=True, verbose_name="紹介文")
@@ -26,7 +30,7 @@ class Member(models.Model):
 
     panels = [
         FieldPanel('name'), FieldPanel('role_type'), FieldPanel('number'),
-        FieldPanel('grade'), FieldPanel('position'), FieldPanel('hometown'), 
+        FieldPanel('grade'), FieldPanel('department'), FieldPanel('position'), FieldPanel('hometown'), 
         FieldPanel('profile_text'), FieldPanel('intro_url'),
         FieldPanel('photo'), FieldPanel('display_order'), FieldPanel('is_published'),
     ]
@@ -43,7 +47,8 @@ class Member(models.Model):
 
 
 class MembersPage(Page):
-    """メンバー一覧ページ"""
+    """Member index page"""
+    
     def get_context(self, request):
         context = super().get_context(request)
         members = Member.objects.filter(is_published=True)

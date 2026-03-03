@@ -79,6 +79,22 @@
     </div>
     {% endif %}
     
+    {% if page.vision_text %}
+    <div class="bg-neutral-900 rounded-2xl p-8 md:p-12 shadow-2xl border border-neutral-800 hover:border-kyodaigreen transition duration-500 relative overflow-hidden mb-12">
+        <div class="absolute top-0 right-0 opacity-[0.03] text-8xl md:text-9xl font-black italic -mt-4 -mr-4">VISION</div>
+        <div class="absolute top-6 right-10 opacity-5 text-8xl font-serif text-kyodaigreen pointer-events-none">"</div>
+        
+        <h2 class="text-3xl font-black text-white tracking-widest italic mb-6 border-l-4 border-kyodaigreen pl-4 relative z-10">OUR <span class="text-kyodaigreen">GOAL</span></h2>
+        
+        <div class="prose prose-invert prose-green max-w-none relative z-10 [&_p]:font-black [&_p]:tracking-widest [&_p]:text-xl md:[&_p]:text-2xl [&_p]:text-white [&_p]:leading-relaxed border-t border-neutral-800 pt-8 mt-4">
+            {{ page.vision_text|richtext }}
+        </div>
+    </div>
+    {% endif %}
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
+        <div class="bg-neutral-900 rounded-2xl p-8 md:p-10 shadow-2xl border border-neutral-800 relative overflow-hidden group hover:border-kyodaigreen transition duration-500">
+    
     <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-20">
         <div class="bg-neutral-900 rounded-2xl p-8 md:p-10 shadow-2xl border border-neutral-800 relative overflow-hidden group hover:border-kyodaigreen transition duration-500">
             <div class="absolute top-0 right-0 opacity-5 text-8xl font-black italic -mt-4 -mr-4 group-hover:scale-110 transition duration-500">SCHEDULE</div>

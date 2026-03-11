@@ -1,13 +1,13 @@
 from .base import *
 
+SECRET_KEY = "django-insecure-msb=r@t$(c#*6qtpb2t03vuh1a=!sz1fi5w7q0pfnu73(v67r6"
+
 DEBUG = False
 ALLOWED_HOSTS = ["*"]
 
-# ManifestStaticFilesStorage is recommended in production, to prevent
-# outdated JavaScript / CSS assets being served from cache
-# (e.g. after a Wagtail upgrade).
-# See https://docs.djangoproject.com/en/6.0/ref/contrib/staticfiles/#manifeststaticfilesstorage
-STORAGES["staticfiles"]["BACKEND"] = "django.contrib.staticfiles.storage.ManifestStaticFilesStorage"
+CSRF_TRUSTED_ORIGINS = ["https://kyodai-handball.com"]
+
+STORAGES["staticfiles"]["BACKEND"] = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 try:
     from .local import *
